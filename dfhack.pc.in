@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: dfhack
+Version: @version@
+Description: Dwarf Fortress Memory Hacking Library
+Libs: -L${libdir}/dfhack/hack/ -ldfhack -ldfhack-version
+Cflags: -I${includedir}/dfhack/dfhack -I${includedir}/dfhack/proto -I${includedir}/dfhack/protobuf -I${includedir}/dfhack/lua

@@ -1,0 +1,23 @@
+diff -rupN dfhack/plugins/isoworld/CMakeLists.txt dfhack-fork/plugins/isoworld/CMakeLists.txt
+--- dfhack/plugins/isoworld/CMakeLists.txt	2016-07-07 16:43:07.000000000 -0400
++++ dfhack-fork/plugins/isoworld/CMakeLists.txt	2016-07-12 22:04:41.787097086 -0400
+@@ -56,8 +56,8 @@ IF(UNIX)
+ 		ENDIF()
+ 	ELSE(APPLE)
+ 	#linux
+-		OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
+-		IF(STONESENSE_INTERNAL_SO)
++		OPTION(ISOWORLD_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
++		IF(ISOWORLD_INTERNAL_SO)
+ 			FILE(DOWNLOAD http://dethware.org/dfhack/download/allegro509b.tar.bz2
+ 						  ${CMAKE_CURRENT_SOURCE_DIR}/allegro509b.tar.bz2
+ 						  EXPECTED_MD5 74ead5d95a83a03a301cdc76fa0a3df8)
+@@ -90,6 +90,8 @@ IF(UNIX)
+ 				allegro_dialog
+ 				allegro_image
+ 				allegro_ttf
++				agui
++				agui_allegro5
+ 				${PROJECT_LIBS}
+ 			)
+ 		ENDIF()

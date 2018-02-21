@@ -1,0 +1,51 @@
+#!/bin/sh
+
+export SDL_DISABLE_LOCK_KEYS=1 # Work around for bug in Debian/Ubuntu SDL patch.
+#export SDL_VIDEO_CENTERED=1    # Centre the screen.  Messes up resizing.
+
+pkgname=dwarffortress
+prefix=/usr
+libdir=lib
+
+# Check for user DF directory
+
+if [[ ! -d "$HOME/.$pkgname" ]]; then
+    mkdir -p "$HOME/.$pkgname/data"
+    ln -s ${prefix}/share/"$pkgname"/raw "$HOME/.$pkgname/raw"
+    ln -s ${prefix}/libexec/"$pkgname" "$HOME/.$pkgname/libs"
+    cp -rn ${prefix}/share/"$pkgname"/data/init "$HOME/.$pkgname/data/init"
+fi
+
+# Check for dfhack directory (currently, opt/dfhack).
+
+hack_pkgname=dfhack
+
+if [[ ! -d "$HOME/.$pkgname/hack" ]]; then
+# Link libraries out of libdir.
+    ln -sf ${libdir}/"$hack_pkgname"/hack "$HOME/.$pkgname/hack"
+    ln -sf ${libdir}/"$hack_pkgname"/dfhack "$HOME/.$pkgname/dfhack"
+    ln -sf ${libdir}/"$hack_pkgname"/dfhack-run "$HOME/.$pkgname/dfhack-run"
+
+# Link and copy configuration out of datadir.
+    ln -sf ${prefix}/share/"$hack_pkgname"/dfhack.init-example "$HOME/.$pkgname/dfhack.init-example"
+	cp -r ${prefix}/share/"$hack_pkgname"/dfhack-config "$HOME/.$pkgname/dfhack-config"
+
+fi
+
+# stonesense and dfhack can be installed independendently.
+if [[ ! -d "$HOME/.${pkgname}/stonesense" ]]; then
+	if [ -d "${prefix}/share/${hack_pkgname}/stonesense" ]; then
+		ln -s ${prefix}/share/"$hack_pkgname"/stonesense "$HOME/.$pkgname/stonesense"
+	fi
+fi
+
+# Copy over bits of DF.
+
+if [[ ! -f "$HOME/.dwarffortress/.stockpile" ]]; then
+    for link in announcement art dipscript help index initial_movies movies shader.fs shader.vs sound speech; do
+        cp -r ${prefix}/share/"$pkgname"/data/$link "$HOME/.$pkgname/data/$link"
+    done
+fi
+
+cd "$HOME/.$pkgname"
+exec ./dfhack "$@"

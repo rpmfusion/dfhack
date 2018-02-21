@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Sources in rpm spec start at this identifier.
+SOURCE_START=10
+
+# Run this script as "prepare-dfhack-release RELEASE_NAME":
+# No longer actually builds tarball, but does get submodule commits
+# correctly.
+# Take resultant "git-describe.h" and put it into library/include.
+
+RELEASE_NAME=$1
+
+UPSTREAM="git://github.com/dfhack/dfhack"
+
+# Fetch the repo.
+git clone --depth=1 --recursive -b ${RELEASE_NAME} ${UPSTREAM} dfhack-${RELEASE_NAME}
+
+# Replace gitdir incantations in submodules to relative paths.
+# Credit to https://stackoverflow.com/questions/10953953/ensuring-relative-git-paths
+cd dfhack-${RELEASE_NAME}/
+find -type f -name .git -exec bash -c 'f="{}"; cd $(dirname $f); echo "gitdir: $(realpath --relative-to=. $(cut -d" " -f2 .git))" > .git' \;
+
+# Get the current submodule commits.
+SUBMODULES=`git submodule status --recursive`
+
+GIT_XML_COMMIT=""
+
+# Add some whitespace.
+echo ""
+
+# Loop through all the commits.
+# If the submodule is "library/xml", store commit.
+IFS=$'\n' read -rd '' -a SUBMODULE_ARRAY <<< "${SUBMODULES}"
+for index in "${!SUBMODULE_ARRAY[@]}"
+do
+	LINE=${SUBMODULE_ARRAY[index]}
+	HASH=`echo $LINE | cut -d' ' -f1 -`
+	NAME=`echo $LINE | cut -d' ' -f2 -`
+	COMMIT_INDEX=`expr $index + $SOURCE_START`
+	echo "# dfhack submodule: ${NAME}"
+	echo "%global commit${COMMIT_INDEX} ${HASH}"
+
+	# If the submodule name is 'library/xml' store it.
+	if [ ${NAME} == "library/xml" ]; then
+		GIT_XML_COMMIT=${HASH}
+	fi
+done
+
+# Now get the git description and current commit to create the header.
+GIT_DESCRIPTION=`git describe --tags --abbrev=8 --long`
+GIT_COMMIT=`git rev-parse HEAD`
+cd ../
+
+# Add some whitespace.
+echo ""
+
+# Remove git-describe.h if it exists.
+rm -rf git-describe.h
+
+# Write out git-describe.h.
+set -x
+echo "#define DFHACK_GIT_DESCRIPTION \"${GIT_DESCRIPTION}\"" >> git-describe.h
+echo "#define DFHACK_GIT_COMMIT \"${GIT_COMMIT}\"" >> git-describe.h
+echo "#define DFHACK_GIT_XML_EXPECTED_COMMIT \"${GIT_XML_COMMIT}\"" >> git-describe.h
+echo "#define DFHACK_GIT_XML_COMMIT \"${GIT_XML_COMMIT}\"" >> git-describe.h
+echo "#define DFHACK_GIT_XML_MATCH" >> git-describe.h
+
+# Delete checkout directory.
+rm -rf dfhack-${RELEASE_NAME}/

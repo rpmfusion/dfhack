@@ -1,0 +1,18 @@
+diff -rupN dfhack/plugins/isoworld/DetailedTile.cpp dfhack-fork/plugins/isoworld/DetailedTile.cpp
+--- dfhack/plugins/isoworld/DetailedTile.cpp	2016-09-25 22:58:38.603797808 -0400
++++ dfhack-fork/plugins/isoworld/DetailedTile.cpp	2016-09-25 22:59:13.050852941 -0400
+@@ -4,6 +4,7 @@
+ #include "UserConfig.h"
+ #include "ColorList.h"
+ #include "TileSet.h"
++#include <cmath>
+ #include <sstream>
+ 
+ using namespace isoworldremote;
+@@ -468,4 +469,4 @@ void load_detailed_tiles(ALLEGRO_PATH *
+     }
+     al_destroy_fs_entry(base_folder);
+     al_destroy_path(tile_path);
+-}
+\ No newline at end of file
++}
