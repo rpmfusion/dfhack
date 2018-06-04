@@ -77,11 +77,14 @@ Patch1:         isoworld-cmath-include.patch
 
 # See https://github.com/DFHack/dfhack/issues/961 for these isoworld issues.
 
-# dfhack does not currently support non-32-bit DF.
+# dfhack only supports DF architectures, of which there are two.
 ExclusiveArch:  %{ix86} x86_64
 
 BuildRequires:  gcc, git, cmake, zlib-devel, mesa-libGL-devel
 BuildRequires:  perl-XML-LibXML, perl-XML-LibXSLT, perl-Digest-SHA
+
+# I think this is necessary now, otherwise the build fails.
+BuildRequires:  SDL-devel
 
 # Unbundled ruby.
 BuildRequires:  ruby-libs, ruby-devel
