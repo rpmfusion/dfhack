@@ -37,7 +37,7 @@
 
 Name:           dfhack
 Version:        %{dfversion}
-Release:        1.%{hackrelease}%{?dist}
+Release:        2.%{hackrelease}%{?dist}
 Summary:        Memory hacking library for Dwarf Fortress and a set of tools that use it
 
 # It'd be nice if we could unbundle some of these things, but I suspect it won't happen.
@@ -324,6 +324,9 @@ rm -f docs/build.sh
 %license LICENSE.rst
 
 %changelog
+* Fri Jul 27 2018 RPM Fusion Release Engineering <sergio@serjux.com> - 0.44.10-2.r1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Mon Jun 04 2018 Ben Rosser <rosser.bjr@gmail.com> - 0.44.10-0.r1.1
 - Updated to latest upstream release for 0.44.10.
 
