@@ -65,5 +65,8 @@ echo "#define DFHACK_GIT_XML_EXPECTED_COMMIT \"${GIT_XML_COMMIT}\"" >> git-descr
 echo "#define DFHACK_GIT_XML_COMMIT \"${GIT_XML_COMMIT}\"" >> git-describe.h
 echo "#define DFHACK_GIT_XML_MATCH" >> git-describe.h
 
+# For now, set BUILD_ID to empty string. Might not be right!
+echo "#define DFHACK_BUILD_ID \"\"" >> git-describe.h
+
 # Delete checkout directory.
 rm -rf dfhack-${RELEASE_NAME}/
