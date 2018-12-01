@@ -330,7 +330,7 @@ rm -f docs/build.sh
 %license LICENSE.rst
 
 %changelog
-* Fri Aug 10 2018 Ben Rosser <rosser.bjr@gmail.com> - 0.44.12-0.r1.1
+* Sat Dec 01 2018 Ben Rosser <rosser.bjr@gmail.com> - 0.44.12-0.r1.1
 - Updated to latest upstream release for 0.44.12.
 - Add new submodule for jsoncpp.
 
