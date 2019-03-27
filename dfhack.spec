@@ -40,7 +40,7 @@
 
 Name:           dfhack
 Version:        %{dfversion}
-Release:        3.%{hackrelease}%{?dist}
+Release:        4.%{hackrelease}%{?dist}
 Summary:        Memory hacking library for Dwarf Fortress and a set of tools that use it
 
 # It'd be nice if we could unbundle some of these things, but I suspect it won't happen.
@@ -78,6 +78,9 @@ Patch0:         isoworld-external-allegro-agui.patch
 
 # Patch to include cmath in isoworld.
 Patch1:         isoworld-cmath-include.patch
+
+# Patch to fix stonesense build failure on Fedora 30+
+Patch2:         https://github.com/DFHack/stonesense/pull/53.patch
 
 # See https://github.com/DFHack/dfhack/issues/961 for these isoworld issues.
 
@@ -216,6 +219,11 @@ cp -a %SOURCE3 library/include/
 %patch0 -p1
 %patch1 -p1
 
+# This is a patch for *Stonesense*.
+cd plugins/stonesense
+%patch2 -p1
+cd ../../
+
 # Manually (for now) apply fix to plugins/stonesense/CMakeLists.txt.
 sed 's/dfhack-tinyxml/${DFHACK_TINYXML}/' -i plugins/stonesense/CMakeLists.txt
 
@@ -330,6 +338,9 @@ rm -f docs/build.sh
 %license LICENSE.rst
 
 %changelog
+* Wed Mar 27 2019 Ben Rosser <rosser.bjr@gmail.com> - 0.44.12-4.r2
+- Fix FTBFS in Stonesense on Fedora 30 and up.
+
 * Tue Mar 05 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.44.12-3.r2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
