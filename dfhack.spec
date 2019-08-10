@@ -40,7 +40,7 @@
 
 Name:           dfhack
 Version:        %{dfversion}
-Release:        4.%{hackrelease}%{?dist}
+Release:        5.%{hackrelease}%{?dist}
 Summary:        Memory hacking library for Dwarf Fortress and a set of tools that use it
 
 # It'd be nice if we could unbundle some of these things, but I suspect it won't happen.
@@ -338,6 +338,9 @@ rm -f docs/build.sh
 %license LICENSE.rst
 
 %changelog
+* Sat Aug 10 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.44.12-5.r2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Wed Mar 27 2019 Ben Rosser <rosser.bjr@gmail.com> - 0.44.12-4.r2
 - Fix FTBFS in Stonesense on Fedora 30 and up.
 
