@@ -1,0 +1,11 @@
+--- depends/protobuf/google/protobuf/message.cc	2020-02-24 14:28:55.167232318 -0500
++++ depends/protobuf/google/protobuf/message.cc.patched	2020-02-24 14:28:49.769177835 -0500
+@@ -49,6 +49,8 @@
+ #include <google/protobuf/stubs/map-util.h>
+ #include <google/protobuf/stubs/stl_util-inl.h>
+ 
++#include <fstream>
++
+ namespace google {
+ namespace protobuf {
+ 
