@@ -79,9 +79,6 @@ Patch0:         isoworld-external-allegro-agui.patch
 # Patch to include cmath in isoworld.
 Patch1:         isoworld-cmath-include.patch
 
-# Patch to fix stonesense build failure on Fedora 30+
-Patch2:         https://github.com/DFHack/stonesense/pull/53.patch
-
 # See https://github.com/DFHack/dfhack/issues/961 for these isoworld issues.
 
 # Patch to make protobuf build on F33/F32 with gcc 10.
@@ -222,11 +219,6 @@ cp -a %SOURCE3 library/include/
 # You know what, don't apply patches. We don't build isoworld, anyway.
 %patch0 -p1
 %patch1 -p1
-
-# This is a patch for *Stonesense*.
-cd plugins/stonesense
-%patch2 -p1
-cd ../../
 
 # Fix protobuf problem; there's probably a way to do this with the patch macro.
 patch depends/protobuf/google/protobuf/message.cc %PATCH3
