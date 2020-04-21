@@ -94,7 +94,7 @@ Patch3:         protobuf-gcc-10-fix.patch
 ExclusiveArch:  %{ix86} x86_64
 
 BuildRequires:  gcc, git, cmake, zlib-devel, mesa-libGL-devel
-BuildRequires:  perl-XML-LibXML, perl-XML-LibXSLT, perl-Digest-SHA, perl-File-Copy
+BuildRequires:  perl-XML-LibXML, perl-XML-LibXSLT, perl-Digest-SHA
 BuildRequires:  gcc-c++
 
 # I think this is necessary now, otherwise the build fails.
