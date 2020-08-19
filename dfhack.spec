@@ -42,6 +42,9 @@
 %global dfhack_arch 64
 %endif
 
+# Use old cmake macro
+%global __cmake_in_source_build 1
+
 Name:           dfhack
 Version:        %{dfversion}
 Release:        3.%{hackrelease}%{?dist}
