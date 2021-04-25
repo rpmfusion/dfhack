@@ -47,7 +47,7 @@
 
 Name:           dfhack
 Version:        %{dfversion}
-Release:        4.%{hackrelease}%{?dist}
+Release:        5.%{hackrelease}%{?dist}
 Summary:        Memory hacking library for Dwarf Fortress and a set of tools that use it
 
 # It'd be nice if we could unbundle some of these things, but I suspect it won't happen.
@@ -344,6 +344,9 @@ rm -f docs/build.sh
 %license LICENSE.rst
 
 %changelog
+* Sun Apr 25 2021 Leigh Scott <leigh123linux@gmail.com> - 0.47.04-5.r1
+- Rebuilt for removed libstdc++ symbol (#1937698)
+
 * Thu Feb 04 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.47.04-4.r1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
