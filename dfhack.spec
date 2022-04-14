@@ -47,7 +47,7 @@
 
 Name:           dfhack
 Version:        %{dfversion}
-Release:        7.%{hackrelease}%{?dist}
+Release:        8.%{hackrelease}%{?dist}
 Summary:        Memory hacking library for Dwarf Fortress and a set of tools that use it
 
 # It'd be nice if we could unbundle some of these things, but I suspect it won't happen.
@@ -92,6 +92,8 @@ Source15:       https://github.com/DFHack/scripts/archive/%{commit15}/dfhack-scr
 # Patch to make protobuf build on F33/F32 with gcc 10.
 # https://github.com/DFHack/dfhack/issues/1506
 Patch3:         protobuf-gcc-10-fix.patch
+# https://github.com/DFHack/dfhack/commit/39c650de131f85ea74d1f7638c3ea630faed5c15
+Patch4:         %{name}-0.47.05-fpermissive-uicommon.patch
 
 # dfhack only supports DF architectures, of which there are two.
 ExclusiveArch:  %{ix86} x86_64
@@ -227,6 +229,7 @@ cp -a %SOURCE3 library/include/
 # You know what, don't apply patches. We don't build isoworld, anyway.
 #patch0 -p1
 #patch1 -p1
+%patch4 -p1
 
 # Fix protobuf problem; there's probably a way to do this with the patch macro.
 patch depends/protobuf/google/protobuf/message.cc %PATCH3
@@ -344,6 +347,9 @@ rm -f docs/build.sh
 %license LICENSE.rst
 
 %changelog
+* Thu Apr 14 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.47.04-8.r1
+- Backport upstream fix to compile with -fpermissive for uicommon.h
+
 * Thu Feb 10 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.47.04-7.r1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 

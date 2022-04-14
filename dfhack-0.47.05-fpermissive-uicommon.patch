@@ -1,0 +1,35 @@
+From 39c650de131f85ea74d1f7638c3ea630faed5c15 Mon Sep 17 00:00:00 2001
+From: lethosor <lethosor@gmail.com>
+Date: Sat, 21 Aug 2021 12:58:17 -0400
+Subject: [PATCH] Fix compilation error on macOS with GCC 11
+
+This should make `-fpermissive` (from #1924) unnecessary, so I also removed
+those instructions.
+---
+ docs/Compile.rst   | 14 ++++----------
+ plugins/uicommon.h |  5 +++--
+ 2 files changed, 7 insertions(+), 12 deletions(-)
+
+diff --git a/plugins/uicommon.h b/plugins/uicommon.h
+index 78256ac690..54a948eb28 100644
+--- a/plugins/uicommon.h
++++ b/plugins/uicommon.h
+@@ -31,7 +31,6 @@ using namespace std;
+ using std::string;
+ using std::vector;
+ using std::map;
+-using std::ostringstream;
+ using std::set;
+ 
+ using namespace DFHack;
+@@ -160,7 +159,9 @@ static inline void OutputToggleString(int &x, int &y, const char *text, df::inte
+ 
+ inline string int_to_string(const int n)
+ {
+-    return static_cast<ostringstream*>( &(ostringstream() << n) )->str();
++    std::ostringstream ss;
++    ss << n;
++    return ss.str();
+ }
+ 
+ static inline void set_to_limit(int &value, const int maximum, const int min = 0)
