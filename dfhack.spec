@@ -227,9 +227,9 @@ cp -a %SOURCE3 library/include/
 
 # Apply patches. This complains about line endings, for some reason...
 # You know what, don't apply patches. We don't build isoworld, anyway.
-#patch0 -p1
-#patch1 -p1
-%patch4 -p1
+#patch -P0 -p1
+#patch -P1 -p1
+%patch -P4 -p1
 
 # Fix protobuf problem; there's probably a way to do this with the patch macro.
 patch depends/protobuf/google/protobuf/message.cc %PATCH3
