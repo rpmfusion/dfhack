@@ -255,7 +255,7 @@ cd build
 # * link against system-wide tinyxml
 # * don't download libruby.so, load system one.
 %cmake .. -DCMAKE_BUILD_TYPE:string=Release -DCMAKE_INSTALL_PREFIX=%{buildroot}%{_libdir}/dfhack -DDFHACK_BUILD_ARCH=%{dfhack_arch} \
- %{?fedora:-DBUILD_STONESENSE:BOOL=True -DSTONESENSE_INTERNAL_SO=OFF} -DDOWNLOAD_RUBY=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+ %{?fedora:-DBUILD_STONESENSE:BOOL=True -DSTONESENSE_INTERNAL_SO=OFF} -DDOWNLOAD_RUBY=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -G "Unix Makefiles"
 # These do not seem to work currently.
 # -DBUILD_ISOWORLD=ON -DISOWORLD_INTERNAL_SO=OFF
 %make_build
